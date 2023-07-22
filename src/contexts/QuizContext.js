@@ -81,6 +81,8 @@ function QuizProvider({ children }) {
 
   const numQuestions = questions.length;
 
+  console.log(questions.length);
+
   const maxPossiblePoints = questions.reduce(
     (prev, cur) => prev + cur.points,
     0
@@ -91,7 +93,10 @@ function QuizProvider({ children }) {
       "https://my-json-server.typicode.com/mhasantariq/react-quiz-database/db"
     )
       .then((res) => res.json())
-      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .then((data) => {
+        const questions = data.questions;
+        dispatch({ type: "dataReceived", payload: questions });
+      })
       .catch((err) => dispatch({ type: "dataFailed" }));
   }, []);
 
